@@ -434,12 +434,12 @@
     const googleFormURL = 'https://docs.google.com/forms/d/e/1FAIpQLSf5eb6agaSfrQmMXDFQC_ETiLiVwc__O1hEpABaLnPteynvVQ/formResponse';
     
     const formData = new FormData();
-    formData.append('entry.446761143', contentType);
-    formData.append('entry.908761466', artistName);
-    formData.append('entry.842726595', songTitle);
-    formData.append('entry.150273973', reason);
-    formData.append('entry.438675926', name);
-    formData.append('entry.1573568729', isPatreon ? 'Yes (Priority Voter)' : 'No');
+    formData.append('entry.446761143', contentType);      // What are you requesting?
+    formData.append('entry.908761466', artistName);       // Artist Name / Show Title
+    formData.append('entry.1897564329', songTitle);       // Song / Album / Artist Info
+    formData.append('entry.150273973', reason);           // Why do you want me to react?
+    formData.append('entry.438675926', name);             // Your Name / Username
+    formData.append('entry.1573568729', isPatreon ? 'Yes (Priority Voter)' : 'No'); // Patreon
     
     fetch(googleFormURL, {
       method: 'POST',
