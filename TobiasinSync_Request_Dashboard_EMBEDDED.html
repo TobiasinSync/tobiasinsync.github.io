@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TobiasinSync - Request What You Want to See!</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+  }
+  
+  .header img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  .header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .header p {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+  
+  .panel {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  
+  .section-title {
+    font-size: 22px;
+    color: #667eea;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  
+  .info-box {
+    background: #f0f4ff;
+    border-left: 4px solid #667eea;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .form-container {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .form-container iframe {
+    width: 100%;
+    height: 1200px;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .rankings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .ranking-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    transition: transform 0.3s;
+  }
+  
+  .ranking-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .ranking-card h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .ranking-card p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  
+  .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .faq {
+    display: grid;
+    gap: 15px;
+  }
+  
+  .faq-item {
+    border-left: 3px solid #667eea;
+    padding-left: 15px;
+  }
+  
+  .faq-item h4 {
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .faq-item p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  footer {
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    margin-top: 40px;
+    padding-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <img src="tobiasinync-logo.jpg" alt="TobiasinSync Logo">
+    <h1>What Should I React To?</h1>
+    <p>Tell me what artists, songs, shows, or movies you'd like to see me react to!</p>
+  </div>
+  
+  <div class="panel">
+    <div class="section-title">Submit Your Request</div>
+    
+    <div class="info-box">
+      Fill out this form to request content. Your votes help decide what I upload next!
+      <strong>Patreon supporters get priority voting!</strong>
+    </div>
+    
+    <div class="form-container">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfpISZEwxhfrp2RmxhEnNNlkrUu8GeWkZfiJHNVk4KIfGZjow/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+  </div>
+  
+  <div class="panel">
+    <div class="section-title">Top Requests This Week</div>
+    
+    <div class="info-box">
+      These are the most requested content by category. I tally votes weekly and pick the top 1-2 to feature in upcoming videos!
+    </div>
+    
+    <div id="rankingsContainer" style="display: flex; flex-direction: column; gap: 30px;">
+      <div>
+        <h3 style="color: #667eea; margin-bottom: 15px; font-size: 18px;">Songs</h3>
+        <div class="rankings" id="songsRankings">
+          <p style="text-align: center; color: #999;">No requests yet</p>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="color: #667eea; margin-bottom: 15px; font-size: 18px;">Albums</h3>
+        <div class="rankings" id="albumsRankings">
+          <p style="text-align: center; color: #999;">No requests yet</p>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="color: #667eea; margin-bottom: 15px; font-size: 18px;">Artist Deep Dives</h3>
+        <div class="rankings" id="artistsRankings">
+          <p style="text-align: center; color: #999;">No requests yet</p>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="color: #667eea; margin-bottom: 15px; font-size: 18px;">TV Shows</h3>
+        <div class="rankings" id="showsRankings">
+          <p style="text-align: center; color: #999;">No requests yet</p>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="color: #667eea; margin-bottom: 15px; font-size: 18px;">Movies</h3>
+        <div class="rankings" id="moviesRankings">
+          <p style="text-align: center; color: #999;">No requests yet</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel">
+    <div class="section-title">FAQ</div>
+    
+    <div class="faq">
+      <div class="faq-item">
+        <h4>How often do you tally votes?</h4>
+        <p>I count votes weekly and announce the top 1-2 most requested content. Then I feature them in my next videos!</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4>Can I vote multiple times?</h4>
+        <p>You can submit multiple requests, but each submission counts as one vote. So if you want me to react to a certain artist, you can submit multiple times!</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4>Do Patreon supporters get priority?</h4>
+        <p>Yes! Patreon members get extra votes (their votes count as 3x), so their requests count more. It's a small way to thank supporters while keeping all content free for everyone.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4>What if my request doesn't win?</h4>
+        <p>Don't worry! Top requests from every week get cycled through. If you don't win this week, your content could be featured next week or in a future "Viewer Requests" video.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  TobiasinSync © 2025 | Help shape my content! | Questions? Contact me: tobiasinsync@gmail.com
+</footer>
+
+<script>
+  function displayCategory(elementId, items) {
+    const container = document.getElementById(elementId);
+    if (items.length === 0) {
+      container.innerHTML = '<p style="text-align: center; color: #999;">No requests yet</p>';
+      return;
+    }
+    
+    items.sort((a, b) => b.votes - a.votes);
+    const top3 = items.slice(0, 3);
+    
+    let html = '';
+    top3.forEach((item, index) => {
+      html += '<div class="ranking-card"><h3>#' + (index + 1) + '</h3><p>' + item.artist + '</p></div>';
+    });
+    
+    container.innerHTML = html;
+  }
+
+  function loadSavedRankings() {
+    const saved = localStorage.getItem('rankings');
+    if (saved) {
+      const categories = JSON.parse(saved);
+      displayCategory('songsRankings', categories['Music - Song Reaction'] || []);
+      displayCategory('albumsRankings', categories['Music - Album/EP Reaction'] || []);
+      displayCategory('artistsRankings', categories['Music - Artist Deep Dive'] || []);
+      displayCategory('showsRankings', categories['TV Show / Web Series'] || []);
+      displayCategory('moviesRankings', categories['Movie'] || []);
+    }
+  }
+
+  loadSavedRankings();
+</script>
+
+</body>
+</html>
